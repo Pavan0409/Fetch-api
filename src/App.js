@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import MoviesList from "./components/MoviesList";
 import "./App.css";
 
@@ -9,7 +9,7 @@ function App() {
   const [retrytimer, setReTryTimer] = useState();
   const [check, setCheck] = useState(false);
 
-  async function fetchMoviesHandler() {
+  const fetchMoviesHandler = useCallback( async() => {
     setIsLoading(true);
     setError(null);
 
@@ -40,7 +40,12 @@ function App() {
       console.log(retimer);
     }
     setIsLoading(false);  
-  }
+  }, []);
+
+  useEffect(() => {
+    fetchMoviesHandler()
+    console.log('useeffect updated');
+  },[fetchMoviesHandler])
 
   let content = <p>Found no movies.</p>
   if(movies.length > 0){
