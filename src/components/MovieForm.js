@@ -1,10 +1,10 @@
 import React, { useRef } from "react";
 import classes from "./MovieForm.module.css";
 
-const MovieForm = () => {
-  const movieTitleRef = useRef();
-  const movieOpeningRef = useRef();
-  const movieDateRef = useRef();
+const MovieForm = (props) => {
+  const movieTitleRef = useRef('');
+  const movieOpeningRef = useRef('');
+  const movieDateRef = useRef('');
 
   const onSubmitHandler = (event) => {
     event.preventDefault();
@@ -17,9 +17,10 @@ const MovieForm = () => {
       openingText: movieOpening,
       releaseDate: movieDate,
     };
-
+    props.onAddMovie(NewMovieObj);
     console.log(NewMovieObj);
   };
+
   return (
     <div className={classes.movieform}>
       <form onSubmit={onSubmitHandler}>
